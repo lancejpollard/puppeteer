@@ -1,5 +1,5 @@
 {
-  "name": "@puppeteer/browsers",
+  "name": "@lancejpollard/puppeteer-browsers",
   "version": "2.0.0",
   "description": "Download and launch browsers",
   "scripts": {

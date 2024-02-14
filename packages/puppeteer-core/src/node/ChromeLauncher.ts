@@ -12,7 +12,7 @@ import {
   computeSystemExecutablePath,
   Browser as SupportedBrowsers,
   ChromeReleaseChannel as BrowsersChromeReleaseChannel,
-} from '@puppeteer/browsers';
+} from '@lancejpollard/puppeteer-browsers';
 
 import type {Browser} from '../api/Browser.js';
 import {debugError} from '../common/util.js';
@@ -36,6 +36,7 @@ export class ChromeLauncher extends ProductLauncher {
   }
 
   override launch(options: PuppeteerNodeLaunchOptions = {}): Promise<Browser> {
+    console.log('ChromeLauncher#launch', options);
     if (
       this.puppeteer.configuration.logLevel === 'warn' &&
       process.platform === 'darwin' &&
@@ -65,6 +66,7 @@ export class ChromeLauncher extends ProductLauncher {
   override async computeLaunchArguments(
     options: PuppeteerNodeLaunchOptions = {}
   ): Promise<ResolvedLaunchArgs> {
+    console.log('ChromeLauncher#computeLaunchArguments', options);
     const {
       ignoreDefaultArgs = false,
       args = [],
@@ -129,6 +131,8 @@ export class ChromeLauncher extends ProductLauncher {
       );
       chromeExecutable = this.executablePath(channel, options.headless ?? true);
     }
+
+    console.log('ChromeLauncher#computeLaunchArguments complete');
 
     return {
       executablePath: chromeExecutable,

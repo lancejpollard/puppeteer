@@ -196,6 +196,14 @@ export class Process {
       }
     );
 
+    console.log('Process#new browserProcess spawned', {
+      executablePath: this.#executablePath,
+      args: this.#args,
+      detached: opts.detached,
+      env,
+      stdio,
+    });
+
     debugLaunch(`Launched ${this.#browserProcess.pid}`);
     if (opts.dumpio) {
       this.#browserProcess.stderr?.pipe(process.stderr);
@@ -356,7 +364,9 @@ export class Process {
     if (!this.#browserProcess.stderr) {
       throw new Error('`browserProcess` does not have stderr.');
     }
+    console.log('Process#waitForLineOutput', this.#browserProcess.stderr, regex, timeout)
     const rl = readline.createInterface(this.#browserProcess.stderr);
+    console.log('Process#waitForLineOutput rl created')
     let stderr = '';
 
     return new Promise((resolve, reject) => {
@@ -378,6 +388,8 @@ export class Process {
       };
 
       function onClose(error?: Error): void {
+        console.log('Process#waitForLineOutput onClose', error)
+
         cleanup();
         reject(
           new Error(
@@ -407,8 +419,10 @@ export class Process {
         stderr += line + '\n';
         const match = line.match(regex);
         if (!match) {
+          console.log('Process#waitForLineOutput onLine', line);
           return;
         }
+        console.log('Process#waitForLineOutput onLine resolve', match, line)
         cleanup();
         // The RegExp matches, so this will obviously exist.
         resolve(match[1]!);

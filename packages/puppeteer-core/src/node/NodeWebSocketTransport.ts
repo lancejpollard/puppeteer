@@ -16,6 +16,7 @@ export class NodeWebSocketTransport implements ConnectionTransport {
     url: string,
     headers?: Record<string, string>
   ): Promise<NodeWebSocketTransport> {
+    console.log('NodeWebSocketTransport#new', url, headers)
     return new Promise((resolve, reject) => {
       const ws = new NodeWebSocket(url, [], {
         followRedirects: true,
@@ -28,6 +29,7 @@ export class NodeWebSocketTransport implements ConnectionTransport {
       });
 
       ws.addEventListener('open', () => {
+        console.log('NodeWebSocketTransport#new open', url, headers)
         return resolve(new NodeWebSocketTransport(ws));
       });
       ws.addEventListener('error', reject);

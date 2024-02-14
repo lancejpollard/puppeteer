@@ -57,6 +57,7 @@ export class CdpBrowser extends BrowserBase {
     isPageTargetCallback?: IsPageTargetCallback,
     waitForInitiallyDiscoveredTargets = true
   ): Promise<CdpBrowser> {
+    console.log('CdpBrowser._create')
     const browser = new CdpBrowser(
       product,
       connection,
@@ -70,6 +71,9 @@ export class CdpBrowser extends BrowserBase {
       waitForInitiallyDiscoveredTargets
     );
     await browser._attach();
+
+    console.log('CdpBrowser._create commplete')
+
     return browser;
   }
   #ignoreHTTPSErrors: boolean;

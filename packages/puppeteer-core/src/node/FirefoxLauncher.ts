@@ -15,7 +15,7 @@ import {
   Cache,
   detectBrowserPlatform,
   Browser,
-} from '@puppeteer/browsers';
+} from '@lancejpollard/puppeteer-browsers';
 
 import {debugError} from '../common/util.js';
 import {assert} from '../util/assert.js';

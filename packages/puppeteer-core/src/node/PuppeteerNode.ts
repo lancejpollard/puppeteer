@@ -10,7 +10,7 @@ import {
   detectBrowserPlatform,
   getInstalledBrowsers,
   uninstall,
-} from '@puppeteer/browsers';
+} from '@lancejpollard/puppeteer-browsers';
 
 import type {Browser} from '../api/Browser.js';
 import type {Configuration} from '../common/Configuration.js';
@@ -168,6 +168,7 @@ export class PuppeteerNode extends Puppeteer {
    * @param options - Options to configure launching behavior.
    */
   launch(options: PuppeteerLaunchOptions = {}): Promise<Browser> {
+    console.log('PuppeteerNode#launch', options);
     const {product = this.defaultProduct} = options;
     this.#lastLaunchedProduct = product;
     return this.#launcher.launch(options);

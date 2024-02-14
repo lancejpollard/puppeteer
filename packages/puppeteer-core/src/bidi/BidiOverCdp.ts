@@ -29,6 +29,7 @@ export async function connectBidiOverCdp(
   //  https://github.com/puppeteer/puppeteer/pull/11415.
   options: {acceptInsecureCerts: boolean}
 ): Promise<BidiConnection> {
+  console.log('BidiOverCdp#connectBidiOverCdp')
   const transportBiDi = new NoOpTransport();
   const cdpConnectionAdapter = new CdpConnectionAdapter(cdp);
   const pptrTransport = {
@@ -60,6 +61,7 @@ export async function connectBidiOverCdp(
     undefined,
     bidiServerLogger
   );
+  console.log('BidiOverCdp#connectBidiOverCdp awaited BidiMapper.BidiServer.createAndStart')
   return pptrBiDiConnection;
 }
 

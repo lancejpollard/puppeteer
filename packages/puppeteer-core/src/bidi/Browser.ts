@@ -70,12 +70,14 @@ export class BidiBrowser extends Browser {
   ];
 
   static async create(opts: BidiBrowserOptions): Promise<BidiBrowser> {
+    console.log('bidi.Browser#create')
     const session = await Session.from(opts.connection, {
       alwaysMatch: {
         acceptInsecureCerts: opts.ignoreHTTPSErrors,
         webSocketUrl: true,
       },
     });
+    console.log('bidi.Browser#create awaited Session.from', opts.connection)
 
     await session.subscribe(
       session.capabilities.browserName.toLocaleLowerCase().includes('firefox')
@@ -83,8 +85,13 @@ export class BidiBrowser extends Browser {
         : [...BidiBrowser.subscribeModules, ...BidiBrowser.subscribeCdpEvents]
     );
 
+    console.log('bidi.Browser#create awaited session.subscribe')
+
     const browser = new BidiBrowser(session.browser, opts);
     browser.#initialize();
+
+    console.log('bidi.Browser#create initialed browser')
+
     return browser;
   }
 
